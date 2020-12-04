@@ -1,0 +1,17 @@
+"scrape_configs":
+  - "dns_sd_configs":
+      - "names":
+          - "_metrics._tcp.craig.local"
+    "job_name": "docker"
+    "relabel_configs":
+      - "regex": "([a-z]+).*"
+        "replacement": "${1}"
+        "source_labels":
+          - "__meta_dns_srv_record_target"
+        "target_label": "container"
+      - "regex": "([a-z]+).([a-z0-9]+).*"
+        "replacement": "${2}"
+        "source_labels":
+          - "__meta_dns_srv_record_target"
+        "target_label": "instance"
+    "scrape_interval": "15s"

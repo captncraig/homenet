@@ -1,0 +1,55 @@
+"networks":
+  "macvlan":
+    "driver": "macvlan"
+    "driver_opts":
+      "parent": "eth0"
+    "ipam":
+      "config":
+        - "gateway": "10.10.0.1"
+          "subnet": "10.10.0.0/16"
+"services":
+  "node_exporter":
+    "command":
+      - "--path.procfs=/host/proc"
+      - "--path.rootfs=/rootfs"
+      - "--path.sysfs=/host/sys"
+      - "--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$|/)"
+    "container_name": "nodeexporter"
+    "image": "prom/node-exporter:v1.0.1"
+    "labels":
+      "metrics.port": "9100"
+    "networks":
+      "macvlan":
+        "ipv4_address": "10.10.102.1"
+    "restart": "unless-stopped"
+    "volumes":
+      - "/proc:/host/proc:ro"
+      - "/sys:/host/sys:ro"
+      - "/:/rootfs:ro"
+  "prometheus":
+    "command":
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+    "container_name": "prom"
+    "dns":
+      - "10.10.101.16"
+    "image": "prom/prometheus:v2.23.0"
+    "labels": {}
+    "networks":
+      "macvlan":
+        "ipv4_address": "10.10.102.16"
+    "restart": "unless-stopped"
+    "volumes":
+      - "./prometheus.yml:/etc/prometheus/prometheus.yml:ro"
+      - "./prometheus-data:/prometheus"
+  "rpi_exporter":
+    "container_name": "armexporter"
+    "image": "carlosedp/arm_exporter:latest"
+    "labels":
+      "metrics.port": "9243"
+    "networks":
+      "macvlan":
+        "ipv4_address": "10.10.102.2"
+    "restart": "unless-stopped"
+"version": "3.8"
+"x-name": "rpi02"
