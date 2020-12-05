@@ -8,22 +8,6 @@
     'x-name': name,
     'x-ip': ip,
     services: baseServices(name),
-    // networks: {
-    //   macvlan: {
-    //     driver: 'macvlan',
-    //     driver_opts: {
-    //       parent: 'eth0',
-    //     },
-    //     ipam: {
-    //       config: [
-    //         {
-    //           subnet: '10.10.0.0/16',
-    //           gateway: '10.10.0.1',
-    //         },
-    //       ],
-    //     },
-    //   },
-    // },
   },
 
   local servers0 = {
@@ -41,7 +25,6 @@
             'A=b',
           ],
           env_file: '.pihole',
-          restart: 'unless-stopped',
           ports: [
             '53:53/tcp',
             '53:53/udp',
@@ -49,17 +32,10 @@
             '80:80/tcp',
             '443:443/tcp',
           ],
-          labels: {},
-          // networks: {
-          //   macvlan: {
-          //     ipv4_address: '10.10.101.1',
-          //   },
-          // },
         },
         caddy: {
           image: images.caddy,
           container_name: 'caddy',
-          restart: 'unless-stopped',
           labels: {},
           volumes: [
             './Caddyfile:/etc/caddy/Caddyfile',
@@ -76,14 +52,11 @@
         duck: {
           image: images.duckdns,
           container_name: 'duckdns',
-          restart: 'unless-stopped',
-          labels: {},
           env_file: '.duckdns',
         },
         unifi: {
           image: images.unifi,
           container_name: 'unifi',
-          restart: 'unless-stopped',
           ports: [
             '3478:3478/udp',
             '10001:10001/udp',
@@ -95,7 +68,6 @@
             '6789:6789',
             '5514:5514',
           ],
-          labels: {},
           volumes: [
             './unifi:/config',
           ],
@@ -124,7 +96,6 @@
           labels: {
             'metrics.port': '9090',
           },
-          restart: 'unless-stopped',
         },
       },
     },
@@ -133,7 +104,8 @@
   // apply defaults to all services
   local servers = std.mapWithKey(function(k, v) v {
     services: std.mapWithKey(function(k, svc) svc {
-      //dns: ['10.10.101.0'],
+      restart: 'unless-stopped',
+      labels+:{},
     }, v.services),
   }, servers0),
 

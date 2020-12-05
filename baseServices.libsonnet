@@ -19,12 +19,10 @@ function(name) {
     labels: {
       'metrics.port': '9100',
     },
-    restart: 'unless-stopped',
   },
   rpi_exporter: {
     image: 'carlosedp/arm_exporter:latest',
     container_name: 'armexporter',
-    restart: 'unless-stopped',
     ports: [
       "9243:9243",
     ],
