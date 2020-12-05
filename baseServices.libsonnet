@@ -1,5 +1,4 @@
-function(name, subnet) {
-  local net = (import 'net.libsonnet'),
+function(name) {
   node_exporter: {
     image: 'prom/node-exporter:v1.0.1',
     container_name: 'nodeexporter',
@@ -14,17 +13,21 @@ function(name, subnet) {
       '--path.sysfs=/host/sys',
       '--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$|/)',
     ],
+    ports: [
+      "9100:9100",
+    ],
     labels: {
       'metrics.port': '9100',
     },
     restart: 'unless-stopped',
-    networks: net.networks(subnet, 1),
   },
   rpi_exporter: {
     image: 'carlosedp/arm_exporter:latest',
     container_name: 'armexporter',
     restart: 'unless-stopped',
-    networks: net.networks(subnet, 2),
+    ports: [
+      "9243:9243",
+    ],
     labels: {
       'metrics.port': '9243',
     },
