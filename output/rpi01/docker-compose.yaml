@@ -2,7 +2,7 @@
   "caddy":
     "container_name": "caddy"
     "environment":
-      "CADDYFILE_HASH": "88d851ff00ad53933f65dbfb3ec37aab"
+      "CADDYFILE_HASH": "8edd12d9aefb47fb51ebf988c6f20d82"
     "image": "caddy:2.2.1-alpine"
     "labels": {}
     "ports":
@@ -12,7 +12,7 @@
     "restart": "unless-stopped"
     "volumes":
       - "./Caddyfile:/etc/caddy/Caddyfile"
-  "duck":
+  "duckdns":
     "container_name": "duckdns"
     "env_file": ".duckdns"
     "image": "linuxserver/duckdns"
@@ -67,16 +67,7 @@
       - "MEM_LIMIT=1024M"
     "image": "linuxserver/unifi-controller:version-6.0.41"
     "labels": {}
-    "ports":
-      - "3478:3478/udp"
-      - "10001:10001/udp"
-      - "8080:8080"
-      - "8443:8443"
-      - "900:1900/udp"
-      - "8843:8843"
-      - "8880:8880"
-      - "6789:6789"
-      - "5514:5514"
+    "network_mode": "host"
     "restart": "unless-stopped"
     "volumes":
       - "./unifi:/config"

@@ -1,4 +1,11 @@
 "services":
+  "grafana":
+    "container_name": "grafana"
+    "image": "grafana/grafana:7.3.4"
+    "labels": {}
+    "ports":
+      - "3000:3000"
+    "restart": "unless-stopped"
   "node_exporter":
     "command":
       - "--path.procfs=/host/proc"

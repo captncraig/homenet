@@ -15,7 +15,6 @@
       services+: {
         pihole: {
           image: images.pihole,
-          container_name: 'pihole',
           volumes: [
             './etc-pihole/:/etc/pihole/',
             './etc-dnsmasq.d/:/etc/dnsmasq.d/',
@@ -35,8 +34,6 @@
         },
         caddy: {
           image: images.caddy,
-          container_name: 'caddy',
-          labels: {},
           volumes: [
             './Caddyfile:/etc/caddy/Caddyfile',
           ],
@@ -49,25 +46,13 @@
             '2019:2019',
           ],
         },
-        duck: {
+        duckdns: {
           image: images.duckdns,
-          container_name: 'duckdns',
           env_file: '.duckdns',
         },
         unifi: {
           image: images.unifi,
-          container_name: 'unifi',
-          ports: [
-            '3478:3478/udp',
-            '10001:10001/udp',
-            '8080:8080',
-            '8443:8443',
-            '900:1900/udp',
-            '8843:8843',
-            '8880:8880',
-            '6789:6789',
-            '5514:5514',
-          ],
+          network_mode: 'host',
           volumes: [
             './unifi:/config',
           ],
@@ -97,7 +82,14 @@
             'metrics.port': '9090',
           },
         },
+        grafana: {
+          image: images.grafana,
+          ports: [
+            '3000:3000',
+          ],
+        },
       },
+
     },
   },
 
@@ -105,7 +97,8 @@
   local servers = std.mapWithKey(function(k, v) v {
     services: std.mapWithKey(function(k, svc) svc {
       restart: 'unless-stopped',
-      labels+:{},
+      labels+: {},
+      container_name: if std.objectHas(svc, 'container_name') then svc.container_name else k,
     }, v.services),
   }, servers0),
 

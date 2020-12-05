@@ -12,8 +12,12 @@ unifi.captncraig.io {
 		transport http {
 			tls
 			tls_insecure_skip_verify
-			read_buffer 8192 # <-- question #3
+			read_buffer 8192
 		}
 		
 	}
+}
+
+grafana.captncraig.io {
+    reverse_proxy grafana.rpi02:3000
 }
