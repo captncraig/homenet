@@ -1,8 +1,6 @@
 "services":
   "grafana":
     "container_name": "grafana"
-    "environment":
-      "ENABLE_MJPG_STREAMER": "true"
     "image": "grafana/grafana:7.3.4"
     "labels": {}
     "ports":

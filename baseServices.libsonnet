@@ -1,6 +1,7 @@
 function(name) {
+  local images = (import 'images.libsonnet'),
   node_exporter: {
-    image: 'prom/node-exporter:v1.0.1',
+    image: images.node_exporter,
     container_name: 'nodeexporter',
     volumes: [
       '/proc:/host/proc:ro',
@@ -21,7 +22,7 @@ function(name) {
     },
   },
   rpi_exporter: {
-    image: 'carlosedp/arm_exporter:latest',
+    image: images.rpi_exporter,
     container_name: 'armexporter',
     ports: [
       "9243:9243",

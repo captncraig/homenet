@@ -1,5 +1,4 @@
 {
-  local net = (import 'net.libsonnet'),
   local baseServices = (import 'baseServices.libsonnet'),
   local images = (import 'images.libsonnet'),
 
@@ -87,9 +86,6 @@
           ports: [
             '3000:3000',
           ],
-          environment:{
-            ENABLE_MJPG_STREAMER: "true",
-          },
         },
       },
     },
@@ -100,12 +96,18 @@
           ports: [
             '3080:80'
           ],
+          volumes: [
+            './octoprint:/octoprint',
+          ],
           devices:[
             "dev/ttyACM0:/dev/ttyACM0",
             "/dev/video0:/dev/video0",
           ],
           labels: {
             'metrics.port': '3080',
+          },
+          environment:{
+            ENABLE_MJPG_STREAMER: "true",
           },
         },
       }

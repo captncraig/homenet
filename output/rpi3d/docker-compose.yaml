@@ -21,12 +21,16 @@
     "devices":
       - "dev/ttyACM0:/dev/ttyACM0"
       - "/dev/video0:/dev/video0"
+    "environment":
+      "ENABLE_MJPG_STREAMER": "true"
     "image": "octoprint/octoprint:1.5.2-minimal"
     "labels":
       "metrics.port": "3080"
     "ports":
       - "3080:80"
     "restart": "unless-stopped"
+    "volumes":
+      - "./octoprint:/octoprint"
   "rpi_exporter":
     "container_name": "armexporter"
     "image": "carlosedp/arm_exporter:latest"
