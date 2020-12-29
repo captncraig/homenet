@@ -5,4 +5,5 @@
     prometheus: 'prom/prometheus:v2.23.0',
     unifi: 'linuxserver/unifi-controller:version-6.0.41',
     grafana: 'grafana/grafana:7.3.4',
+    octoprint: 'octoprint/octoprint:1.5.2-minimal',
 }

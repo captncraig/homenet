@@ -87,9 +87,28 @@
           ports: [
             '3000:3000',
           ],
+          environment:{
+            ENABLE_MJPG_STREAMER: "true",
+          },
         },
       },
-
+    },
+    rpi3d: compose('rpi3d', '10.10.120.0') + {
+      services+: {
+        ocotprint:{
+          image: images.octoprint,
+          ports: [
+            '3080:80'
+          ],
+          devices:[
+            "dev/ttyACM0:/dev/ttyACM0",
+            "/dev/video0:/dev/video0",
+          ],
+          labels: {
+            'metrics.port': '3080',
+          },
+        },
+      }
     },
   },
 
@@ -128,4 +147,5 @@
   'rpi01/etc-dnsmasq.d/03-dns-srv.conf': std.join('\n', std.flattenArrays(srvRecords)),
   'rpi02/docker-compose.yaml': std.manifestYamlDoc(servers.rpi02, true),
   'rpi02/prometheus.yml': std.manifestYamlDoc((import 'promconfig.libsonnet'), true),
+  'rpi3d/docker-compose.yaml': std.manifestYamlDoc(servers.rpi3d, true),
 }

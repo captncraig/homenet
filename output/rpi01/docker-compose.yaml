@@ -2,7 +2,7 @@
   "caddy":
     "container_name": "caddy"
     "environment":
-      "CADDYFILE_HASH": "8edd12d9aefb47fb51ebf988c6f20d82"
+      "CADDYFILE_HASH": "a163c0c4846a03ddb8d2ef91e145f0c6"
     "image": "caddy:2.2.1-alpine"
     "labels": {}
     "ports":

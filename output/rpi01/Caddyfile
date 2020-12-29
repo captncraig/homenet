@@ -18,6 +18,10 @@ unifi.captncraig.io {
 	}
 }
 
+3d.captncraig.io {
+    reverse_proxy octoprint.rpi3d:3080
+}
+
 grafana.captncraig.io {
     reverse_proxy grafana.rpi02:3000
 }

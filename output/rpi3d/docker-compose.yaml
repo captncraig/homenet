@@ -1,13 +1,4 @@
 "services":
-  "grafana":
-    "container_name": "grafana"
-    "environment":
-      "ENABLE_MJPG_STREAMER": "true"
-    "image": "grafana/grafana:7.3.4"
-    "labels": {}
-    "ports":
-      - "3000:3000"
-    "restart": "unless-stopped"
   "node_exporter":
     "command":
       - "--path.procfs=/host/proc"
@@ -25,20 +16,17 @@
       - "/proc:/host/proc:ro"
       - "/sys:/host/sys:ro"
       - "/:/rootfs:ro"
-  "prometheus":
-    "command":
-      - "--config.file=/etc/prometheus/prometheus.yml"
-      - "--storage.tsdb.path=/prometheus"
-    "container_name": "prom"
-    "image": "prom/prometheus:v2.23.0"
+  "ocotprint":
+    "container_name": "ocotprint"
+    "devices":
+      - "dev/ttyACM0:/dev/ttyACM0"
+      - "/dev/video0:/dev/video0"
+    "image": "octoprint/octoprint:1.5.2-minimal"
     "labels":
-      "metrics.port": "9090"
+      "metrics.port": "3080"
     "ports":
-      - "9090:9090"
+      - "3080:80"
     "restart": "unless-stopped"
-    "volumes":
-      - "./prometheus.yml:/etc/prometheus/prometheus.yml:ro"
-      - "./prometheus-data:/prometheus"
   "rpi_exporter":
     "container_name": "armexporter"
     "image": "carlosedp/arm_exporter:latest"
@@ -48,5 +36,5 @@
       - "9243:9243"
     "restart": "unless-stopped"
 "version": "3.8"
-"x-ip": "10.10.102.0"
-"x-name": "rpi02"
+"x-ip": "10.10.120.0"
+"x-name": "rpi3d"
