@@ -10,4 +10,5 @@ spec:
     kind: GitRepository
     name: homenet
   wait: true
+  prune: true
   timeout: 2m

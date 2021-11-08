@@ -14,3 +14,4 @@
 
 7. Add kustomize controller to sync manifests.
 
+8. You are now autodeploying anything you push to `./manifests` !!!
