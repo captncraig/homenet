@@ -15,3 +15,8 @@
 7. Add kustomize controller to sync manifests.
 
 8. You are now autodeploying anything you push to `./manifests` !!!
+
+9. Create lastpass secret: 
+  ```kubectl -n lastpass-controller create secret generic lastpass-creds \
+  --from-literal=username=$LASTPASS_USER \
+  --from-literal=password=$LASTPASS_PASS```
