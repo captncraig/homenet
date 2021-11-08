@@ -20,3 +20,7 @@
   ```kubectl -n lastpass-controller create secret generic lastpass-creds \
   --from-literal=username=$LASTPASS_USER \
   --from-literal=password=$LASTPASS_PASS```
+
+10. Deploy lastpass controller and you got secrets stored out of repo!
+
+11. Metallb? http://blog.cowger.us/2019/02/10/using-metallb-with-the-unifi-usg-for-in-home-kubernetes-loadbalancer-services.html
