@@ -15,7 +15,7 @@ metadata:
   name: metallb
   namespace: flux-system
 spec:
-  chart: redis
+  chart: metallb
   version: 0.11.0
   sourceRef:
     name: metallb
