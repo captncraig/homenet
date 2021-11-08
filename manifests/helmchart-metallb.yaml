@@ -1,0 +1,23 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: metallb
+  namespace: homenet
+spec:
+  url:  https://metallb.github.io/metallb
+  interval: 10m
+
+---
+
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmChart
+metadata:
+  name: metallb
+  namespace: homenet
+spec:
+  chart: redis
+  version: 0.11.0
+  sourceRef:
+    name: metallb
+    kind: HelmRepository
+  interval: 5m
