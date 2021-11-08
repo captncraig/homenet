@@ -8,5 +8,5 @@
 
 4. k3sup join --host k3s-02 --server-host k3s-01 --user ubuntu
 
-5. Install flux per [instructions](https://fluxcd.io/docs/get-started/).
+5. Install flux per [instructions](https://fluxcd.io/docs/get-started/). Or I do it the manual way with `flux install --export >> manifests/flux.yaml` and `kubectl apply -f manifests/flux.yaml`
 
