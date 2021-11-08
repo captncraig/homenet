@@ -31,3 +31,14 @@ subjects:
 - kind: ServiceAccount
   name: lastpass-controller
   namespace: lastpass-controller
+
+---
+apiVersion: v1
+data:
+  test: "test-secret"
+kind: ConfigMap
+metadata:
+  labels:
+    lastpass-secret: true
+  name: test-secret
+  namespace: lastpass-controller
