@@ -39,6 +39,6 @@ data:
 kind: ConfigMap
 metadata:
   labels:
-    lastpass-secret: true
+    lastpass-secret: "true"
   name: test-secret
   namespace: lastpass-controller
