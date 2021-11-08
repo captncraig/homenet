@@ -21,3 +21,19 @@ spec:
     name: metallb
     kind: HelmRepository
   interval: 5m
+
+---
+
+apiVersion: helm.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: metallb
+  namespace: metallb
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: metallb
+      sourceRef:
+        kind: HelmChart
+        name: metallb
