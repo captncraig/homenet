@@ -30,7 +30,7 @@ spec:
             secretKeyRef:
               key: username
               name: lastpass-creds
-        image: captncraig/lastpass-controller:dd0cd15dfa082aff279f670369d93bfe5911581b
+        image: captncraig/lastpass-controller:218865c2060a91e11e21122ae1c020accddd25df
         imagePullPolicy: IfNotPresent
         name: lastpass-controller
       serviceAccountName: lastpass-controller
