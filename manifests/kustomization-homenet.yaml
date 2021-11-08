@@ -4,7 +4,7 @@ metadata:
   name: homenet
   namespace: flux-system
 spec:
-  interval: 5m
+  interval: 1m
   path: "./manifests"
   sourceRef:
     kind: GitRepository

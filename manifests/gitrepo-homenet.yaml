@@ -4,7 +4,7 @@ metadata:
   name: homenet
   namespace: flux-system
 spec:
-  interval: 1m
+  interval: 30s
   url: https://github.com/captncraig/homenet
   ref:
     branch: main
