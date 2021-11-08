@@ -10,3 +10,7 @@
 
 5. Install flux per [instructions](https://fluxcd.io/docs/get-started/). Or I do it the manual way with `flux install --export >> manifests/flux.yaml` and `kubectl apply -f manifests/flux.yaml`
 
+6. Add git repo to manifests and kubectl apply
+
+7. Add kustomize controller to sync manifests.
+
