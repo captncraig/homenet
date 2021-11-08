@@ -47,7 +47,7 @@ data:
       my-asn: 64512
     address-pools:
     - name: default
-      protocol: layer2
+      protocol: bgp
       addresses:
       - 10.42.0.0-10.42.0.254
       avoid-buggy-ips: true
