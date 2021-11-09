@@ -6,7 +6,7 @@ metadata:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: grafana-agent-secrets
+  name: grafana-cloud-secrets
   namespace: grafana-agent
   labels:
     lastpass-secret: "true"
