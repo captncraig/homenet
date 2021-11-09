@@ -14,6 +14,8 @@ data:
   loki-endpoint: loki-endpoint
   loki-user: loki-user
   loki-api: grafanacloud-api
+  prom-user: prom-user
+  prom-api: grafanacloud-api
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: HelmRepository
@@ -113,3 +115,42 @@ subjects:
 - kind: ServiceAccount
   name: grafana-agent
   namespace: grafana-agent
+---
+apiVersion: monitoring.grafana.com/v1alpha1
+kind: MetricsInstance
+metadata:
+  name: primary
+  namespace: grafana-agent
+  labels:
+    agent: grafana-agent
+spec:
+  remoteWrite:
+  - url: https://prometheus-us-central1.grafana.net/api/prom/push
+    basicAuth:
+      username:
+        name: grafana-cloud-secrets
+        key: prom-user
+      password:
+        name: grafana-cloud-secrets
+        key: prom-api
+
+  # Supply an empty namespace selector to look in all namespaces. Remove
+  # this to only look in the same namespace.
+  serviceMonitorNamespaceSelector: {}
+  serviceMonitorSelector:
+    matchLabels:
+      instance: primary
+
+  # Supply an empty namespace selector to look in all namespaces. Remove
+  # this to only look in the same namespace.
+  podMonitorNamespaceSelector: {}
+  podMonitorSelector:
+    matchLabels:
+      instance: primary
+
+  # Supply an empty namespace selector to look in all namespaces. Remove
+  # this to only look in the same namespace.
+  probeNamespaceSelector: {}
+  probeSelector:
+    matchLabels:
+      instance: primary
