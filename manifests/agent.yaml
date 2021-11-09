@@ -36,7 +36,7 @@ spec:
   interval: 5m
   values:
     kubeletService:
-      namespace: grafana-agent
+      namespace: default
       serviceName: kubelet
   chart:
     spec:
