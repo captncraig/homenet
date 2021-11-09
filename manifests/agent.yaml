@@ -62,6 +62,7 @@ spec:
       containers:
       - args:
         - -config.file=/etc/agent/agent.yaml
+        - -config.expand-env
         command:
         - /bin/agent
         env:
@@ -69,6 +70,21 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: spec.nodeName
+        - name: LOKI_ENDPOINT
+          valueFrom:
+            secretKeyRef:
+              key: loki-endpoint
+              name: grafana-agent-secrets
+        - name: LOKI_USER
+          valueFrom:
+            secretKeyRef:
+              key: loki-user
+              name: grafana-agent-secrets
+        - name: LOKI_API
+          valueFrom:
+            secretKeyRef:
+              key: loki-api
+              name: grafana-agent-secrets
         image: grafana/agent:v0.20.0
         imagePullPolicy: IfNotPresent
         name: agent
@@ -115,10 +131,10 @@ data:
     loki:
         configs:
           - clients:
-              - url: YOUR_LOKI_ENDPOINT
+              - url: ${LOKI_ENDPOINT}
                 basic_auth:
-                  username: YOUR_LOKI_USERNAME
-                  password: YOUR_LOKI_PASSWORD
+                  username: ${LOKI_USER}
+                  password: ${LOKI_API}
             name: default
             scrape_configs:
               - job_name: kubernetes-pods-name
@@ -375,3 +391,15 @@ kind: ConfigMap
 metadata:
   name: grafana-agent-logs
   namespace: grafana-agent
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-agent-secrets
+  namespace: grafana-agent
+  labels:
+    lastpass-secret: "true"
+data:
+  loki-endpoint: loki-endpoint
+  loki-user: loki-user
+  loki-api: grafanacloud-api
