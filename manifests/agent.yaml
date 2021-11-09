@@ -35,6 +35,9 @@ metadata:
 spec:
   interval: 5m
   values:
+    kubeletService:
+      namespace: grafana-agent
+      serviceName: kubelet
   chart:
     spec:
       version: 0.1.2
