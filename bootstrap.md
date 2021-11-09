@@ -24,3 +24,6 @@
 10. Deploy lastpass controller and you got secrets stored out of repo!
 
 11. Metallb? http://blog.cowger.us/2019/02/10/using-metallb-with-the-unifi-usg-for-in-home-kubernetes-loadbalancer-services.html
+
+set protocols bgp 64512 neighbor 10.10.201.0 remote-as 64512
+set protocols bgp 64512 neighbor 10.10.202.0 remote-as 64512
