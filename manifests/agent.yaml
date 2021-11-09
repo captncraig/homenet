@@ -14,3 +14,29 @@ data:
   loki-endpoint: loki-endpoint
   loki-user: loki-user
   loki-api: grafanacloud-api
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: grafana-agent
+  namespace: grafana-agent
+spec:
+  url:  https://grafana.github.io/helm-charts
+  interval: 10m
+---
+
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: grafana-agent-operator
+  namespace: grafana-agent
+spec:
+  interval: 5m
+  values:
+  chart:
+    spec:
+      version: 0.1.2
+      chart: grafana-agent-operator
+      sourceRef:
+        kind: HelmRepository
+        name: grafana-agent
