@@ -158,3 +158,16 @@ spec:
     matchLabels:
       instance: primary
 ---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: agent
+  namespace: grafana-agent
+  labels:
+    instance: primary
+spec:
+  selector:
+    matchLabels:
+      "app.kubernetes.io/name": grafana-agent
+  endpoints:
+  - port: 8080
