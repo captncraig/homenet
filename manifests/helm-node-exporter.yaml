@@ -20,6 +20,7 @@ spec:
     prometheus:
       monitor:
         enabled: true
+        jobLabel: "node"
         additionalLabels:
           instance: primary
   chart:
