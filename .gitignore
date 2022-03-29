@@ -1,2 +1,5 @@
 kubeconfig
 gen
+.envrc
+.terraform*
+*tfstate*
